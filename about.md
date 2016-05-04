@@ -4,12 +4,8 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
-
-### More Information
-
-A place to include any other types of information that you'd like to include about yourself.
+I'm a web developer studying Ruby on Rails, Node.js, Angular.js, and other fun web technologies.  I say "fun" because it truly is an enjoyable experience creating applications that other people use to improve their lives.  How cool is it that I can create something in my kitchen and someone on the other side of the earth uses it??
 
 ### Contact me
 
-[email@domain.com](mailto:email@domain.com)
+[zac@zacbaston.com](mailto:zac@zacbaston.com)
