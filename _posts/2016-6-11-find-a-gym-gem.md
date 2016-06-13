@@ -1,7 +1,7 @@
 ---
 layout: project
 github: https://github.com/zacscodingclub/closest_weightlifting_gem
-demo: http://www.youtube.com/watch?v=INSERT_VIDEO_ID
+demo: http://www.youtube.com/watch?v=S3jWSZqWviI
 title: "Finding a Weightlifting Gym Using a Ruby Gem!"
 ---
 
@@ -39,4 +39,4 @@ Now there are several files left in the main folder of the gem and they provide 
 Well, with all that said, in the video below I give a tour of the user interface and show some interesting portions of the code.  If you're curious about the code, check out the github repo [closest_weightlifting_gem](https://github.com/zacscodingclub/closest_weightlifting_gem).
 
 
-[![Closest Weightlifting Gem Gym Walkthrough Video](http://img.youtube.com/vi/INSERT_VIDEO_ID/0.jpg)](http://www.youtube.com/watch?v=INSERT_VIDEO_ID)
+[![Closest Weightlifting Gem Gym Walkthrough Video](http://img.youtube.com/vi/S3jWSZqWviI/0.jpg)](http://www.youtube.com/watch?v=S3jWSZqWviI)
