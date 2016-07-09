@@ -124,14 +124,13 @@ module ApplicationHelper
       #{ content_tag :div, content, class:"alert alert-error alert-danger" }
     HTML
 
-    # Here we take that html variable, and use the .html_safe command to ensure that any unwanted characters are escaped by rails before rendering
+    # Here we take that html variable, and use the .html_safe command to ensure that any unwanted characters are escaped by rails before rendering.  It's may not be too useful for this particular purpose, but this is a good practice to follow.
     html.html_safe
   end
 end
 ```
-
-
+Now that the helper exists, we can now call it in views simply by typing `<%= resource_error_messages(resource) %>`.
 Hopefully there was something of value for you above.  In the video below I give a tour of the user interface and show some interesting portions of the code.  If you're curious about the code, check out the github repo [beer-me](https://github.com/zacscodingclub/beer-me).
 
 
-[![Beer Me Walkthrough Video](http://img.youtube.com/vi/S3jWSZqWviI/0.jpg)]({demo})
+[![Beer Me Walkthrough Video](http://img.youtube.com/vi/p48-bVaSB9w/0.jpg)](http://www.youtube.com/watch?v=p48-bVaSB9w)
