@@ -70,7 +70,7 @@ Now that the back end is setup, we can finally use jQuery to add some AJAX funct
 ```
 This is a very basic request which has two parameters.  The first is a route and the second is a callback function. In this example, we have an anonymous callback function with the response being the argument.  This response is a variable called data and is a JSON object! There are a few other options which can be chained on to a [$.get request](https://api.jquery.com/jquery.get/), which include .done, .fail, and .always, so go check them out.  Now that we are getting a JSON object as a response, we can pass that data into another function which has been created to handle the display portion of the request.
 
-In this blog, I just showed one simple example, but this technique can be translated all throughout a Rails apps controller actions.  In fact, I can create an entire CRUD API using these methods!  In the future, I'll go delve deeper into creating a more amazing API and using Angular on the front end!
+In this blog, I just showed one simple example, but this technique can be translated all throughout a Rails apps controller actions.  In fact, I can create an entire CRUD API using these methods! The video below shows how a user would interact with a new AJAX UI in the context of BeerMe application. In the future, I'll go delve deeper into creating a more amazing API and using Angular on the front end!  
 
 
 [![Beer Me - Rails App with Added AJAX!! ](http://img.youtube.com/vi/sbhN0W47CSg/0.jpg)](http://www.youtube.com/watch?v=n1HEZfjsTMo)
