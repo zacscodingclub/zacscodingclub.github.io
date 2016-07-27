@@ -73,4 +73,4 @@ This is a very basic request which has two parameters.  The first is a route and
 In this blog, I just showed one simple example, but this technique can be translated all throughout a Rails apps controller actions.  In fact, I can create an entire CRUD API using these methods! The video below shows how a user would interact with a new AJAX UI in the context of BeerMe application. In the future, I'll go delve deeper into creating a more amazing API and using Angular on the front end!  
 
 
-[![Beer Me - Rails App with Added AJAX!! ](http://img.youtube.com/vi/sbhN0W47CSg/0.jpg)](http://www.youtube.com/watch?v=n1HEZfjsTMo)
+[![Beer Me - Rails App with Added AJAX!! ](http://img.youtube.com/vi/n1HEZfjsTMo/0.jpg)](http://www.youtube.com/watch?v=n1HEZfjsTMo)
