@@ -105,4 +105,4 @@ Once again, this provides the functionality to create a SPA already, but while c
 ```
 I recommend checking out this  [respond_to](http://apidock.com/rails/ActionController/MimeResponds/respond_to) documentation to learn even more.
 
-In the next segment of this series, I'm going to show how to setup AngularJS on the front end to easily retrieve and display the JSON data.
+In the next segment of this series, I'm going to show how to setup AngularJS on the front end of a Rails application and get it up and running.

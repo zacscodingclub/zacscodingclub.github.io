@@ -13,7 +13,7 @@ There are two quick and easy ways to add the AngularJS source file to a Ruby on 
 
 The other way requires a visit to [https://angularjs.org/](https://angularjs.org/) to download the actual source file.  Once the file is downloaded, it can be placed in the same directory mentioned above, `app/assets/javascripts`, and then we'll have to require it in the application.js file as well using the same code: `//= require angular`.
 
-With Angular now "installed", the next step is to initialize an Angular app module.  This is accomplished by creating a new file within that same `javascripts` directory called `app.js`.  Now to initialize the app, we need to write some code similar to what's below:
+With Angular now "installed", the next step is to initialize an Angular app module.  This is accomplished by creating a directory within that same `javascripts` directory to hold all the Angular code and it's a standard to simply call that folder `app`.  Next up is to actually create an application file with code called `app.js`.  Now to initialize the app, we need to write some code similar to what's below:
 
 ```javascript
 angular
@@ -23,13 +23,19 @@ Here I created an app and the first argument is the name of the app, while the s
 
 The next step is to mount (or bootstrap) the app to it's root element of the HTML using the directive `ng-app`.  This can be accomplished easily by navigating to the Rails application template file located here: `app/views/application.html.erb`.  Here we're just going to add an attribute to an already existing HTML element.  I typically bootstrap the application to the body attribute like this `<body ng-app="trackazon">`, but I often see it mounted to the HTML element as such: `<HTML ng-app="trackazon">`.
 
+At this point, I have a functioning Angular app (WOOHOO!), BUT it doesn't do anything!  I could simply add code to what I wrote in the `app.js` file, however going down that route could end up being a huge pain later when I have to constantly scroll throughout a huge monolithic code base to find what I'm looking for.
 
+The way I was taught is to separate the various parts (controllers, services, directives, filters, etc) of the Angular app into their own directories.  And within each of those directories, it is wise to separate logical units into their own files.  For example, I'm going to make a file called `controllers` and within it will be all of the controllers. In the context of this application a file will be created called `InventoryController.js`.  The quickest way to get a simple controller up and working is by adding the code below to the file:
 
+```javascript
+angular
+  .module('trackazon')
+  .controller('InventoryController', function($scope) {
 
+    $scope.test = "Some test text";
+  });
 
+```
+Here I created a controller called InventoryController and mounted it to the application.  In this example, the controller takes in one argument called `$scope`. `$scope` is the convention used by Angular to hold all the variables, functions, and expressions available in the current context.  In this example, I created a string variable called test which can then be displayed anywhere within the application using the Angular syntax `{{ test }}`.
 
-1. Including Angular and mounting the app
-2. Building a controller
-
-
-3. Getting data using a service
+To review, I discussed how to setup Angular and get it running within a Rails application. In the next segment of this series, I'm going to show how to use AngularJS to create customized views and send/ retrieve data to the Rails backend.
