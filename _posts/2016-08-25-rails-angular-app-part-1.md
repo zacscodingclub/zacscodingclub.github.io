@@ -5,7 +5,7 @@ demo: http://www.youtube.com/watch?v=n1HEZfjsTMo
 title: "Building an Angular Application on a Rails Backend: Part 1"
 ---
 
-This is the first of a multi-part series about the insights I gained while building my first AngularJS application using Ruby on Rails in the backend.  There are almost certainly better ways to do some of these things, but this is how I did it and what I learned.
+This is the first of a three part series about the insights I gained while building my first AngularJS application using Ruby on Rails in the backend. This particular post is about the Rails back end and retrieving JSON data. There are almost certainly better ways to do some of these things, but this is how I did it and what I learned.
 
 <hr>
 
