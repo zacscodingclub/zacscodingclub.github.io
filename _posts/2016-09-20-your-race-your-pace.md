@@ -1,4 +1,4 @@
 ---
 layout: post
-title: They Say "Your Race, Your Pace"
+title: "Your Race, Your Pace"
 ---
