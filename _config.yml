@@ -2,7 +2,8 @@
 # This file contains configuration flags to customize your site
 #
 collections:
-  projects
+  projects:
+    output: true
 
 # Name of your site (displayed in the header)
 name: Zac Baston
