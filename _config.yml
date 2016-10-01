@@ -1,6 +1,8 @@
 #
 # This file contains configuration flags to customize your site
 #
+collections:
+  projects
 
 # Name of your site (displayed in the header)
 name: Zac Baston
