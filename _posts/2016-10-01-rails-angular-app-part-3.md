@@ -44,6 +44,8 @@ With no errors, I need to create a route and wire it up to a template and contro
           templateUrl: 'products/index.html',
           controller: 'InventoryController as vm'
         })
+
+    $urlRouterProvider.otherwise('/');
     });
 ```
 Here we have drawn a route called `inventory` which is mapped to the url '/'.  Since Angular will add a hashtag (#) to the end of the URL, this inventory route having a url of '/' means that the URL in the browser will end with `#/`.  This route also has defined a template called 'products/index.html', which means I need to create a directory within `app/assets/javascripts/` called 'products' and an 'index.html' file inside that new directory.
@@ -60,13 +62,37 @@ angular
 
     ctrl.getProducts = function() {
       ProductService.getProducts()
-          .then(function(response)) {
+          .then(function(response) {
             ctrl.products = response.data;
           }, function(error) {
-            console.log('Error occurred: ' + error);
-          }
-    }
-  });
+            console.log("Error occurred: " + error);
+          })
+      }
+    });
+```
+Alright, so what just happened there is I set a variable `ctrl` equal to the InventoryController so it's easier to understand what scope I'm in later in the controller.  Next I set a controller variable `products` equal to an empty array so I can have a structure to hold data in later.  Lastly I make a function whose job is to go out and get the products data from the database.  But wait, you may notice that I used something called `ProductService`, which I haven't explained yet.
+
+A service in Angular is a great way to extract interaction with a database or external source into it's own home.  In this case, the `ProductService` will simply interact with the local database we created using Rails.  Creating a service is fairly straightforward as you can see in the code below:
+
+```javascript
+  angular
+    .module('trackazon')
+    .service('ProductService',['$http', function($http) {
+      this.getProducts = function() {
+        return $http.get('/products.json');
+      }
+    }]);
+```
+With this code in place, our controller will now have all the products inside the variable `ctrl.products`.  So how do we display this?  Well, since we set the templateUrl in the application router, we need to create that file.  So, now I go ahead and make a file called `index.html` located inside the `app/assets/javascripts/templates/products` directory.  Next, I need to edit that `index.html` file to display some of the product attributes.
+
+```html
+  <ul ng-controller="inventory">
+    <li ng-repeat="product in inventory.products" id="{{ product.id }}" name="product.name">
+      {{ product.name }}, {{ product.item_price }}, {{ product.quantity }}
+    </li>
+  </ul>
 ```
 
-First we
+Since I already mounted the application to the html element, I needed to go ahead and declare which controller I'm using with the `ng-controller` directive.  With this defined, the `products/index.html` file will be loaded into the browser DOM. The HTML in the example above uses an Angular directive [ng-repeat](https://docs.angularjs.org/api/ng/directive/ngRepeat) which will iterate through all the items in a collection.  In this case, it is goes through all the products and makes an instance variable `product` which allows me to access various attributes which I can display on the page.
+
+Now that everything is working and displaying on the page, it's time to conclude this series.  I hope you learned something, because I know I learned a lot while trying to explain how to create and Angular application.  
