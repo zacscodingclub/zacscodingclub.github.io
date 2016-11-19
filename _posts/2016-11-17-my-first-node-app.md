@@ -8,9 +8,11 @@ Earlier this week a friend was talking about wanting to learn how to program and
 To get started, I setup a new folder called `linup_frequency`, then moved into the directory and used `npm init` to create a `package.json` file with some basic metadata about the app.  When you do this, it asks what the entry point of your app is going to be and I just went with the default, `index.js`.  Next I type in `git init` to initialize my directory as a Git repository so I can track changes I make to the code.  
 
 Next I need to understand a little bit about what kind of data I'm going to be dealing with.  When a DFS contest is completed, a user can download a CSV file detailing various basic information about every lineup that was entered into the contest.  The CSV contains a header on the first line that looks similar to this:
+
 ```
 Rank,EntryId,EntryName,TimeRemaining,Points,Lineup,,Player,%Drafted,FPTS
 ```
+
 The key columns I'll need to focus on are `Lineup` and `Player`.  I went ahead and studied the data a little bit looking through to see how these fields are structured so I could consider how to parse them later.  
 
 Knowing that I need to parse a CSV file using Node, I did what any sensible person would do and googled "node csv".  After looking through a couple libraries, I decided on [fast-csv](https://www.npmjs.com/package/fast-csv).  This library has tons of downloads and solid documentation which was more than enough to get me off and running.  To download and install it, I just had to add a small bit of code to the `package.json` (as seen below), then run `npm install` from the command line.
@@ -34,7 +36,8 @@ console.log("Hello World");
 Then run the application by typing `node index` into the command line.  If it there are no errors and you see "Hello World" in the console, things are working smoothly.
 
 The CSV files that were provided for each contest were pretty large at over 100MB of text and commas, so I decided to copy one and truncate down to 10 rows of data while testing the program, which looks like this:
-```
+
+```javascript
 Rank,EntryId,EntryName,TimeRemaining,Points,Lineup,,Player,%Drafted,FPTS
 1,557031802,ryanschumm,0,59,C Nazem Kadri C Radek Faksa W Wayne Simmonds W Jordan Eberle W Mitchell Marner D Radko Gudas D Morgan Rielly G Keith Kinkaid UTIL Mark Scheifele,,Connor McDavid,27.15%,4
 2,557767406,suntzjim (19/22),0,58.4,C Mikhail Grigorenko C Connor McDavid W Blake Wheeler W Wayne Simmonds W Patrick Maroon D Radko Gudas D Morgan Rielly G Craig Anderson UTIL Nikolaj Ehlers,,Oscar Klefbom,19.68%,0.5
@@ -68,6 +71,7 @@ Now With the library loading properly and some test data, it's time to how to us
  ```
 
 When we run this using `node index`, the console then races on by with lots of text and each row looks like it gets converted to an object like this:
+
  ```javascript
  { Rank: '1',
    EntryId: '557031802',
