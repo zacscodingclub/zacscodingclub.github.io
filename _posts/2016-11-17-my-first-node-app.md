@@ -72,7 +72,7 @@ csv
 
 When we run this using `node index`, the console then races by with a wall of text and each row looks like it gets converted to an object like this:
 
- ```javascript
+```javascript
  { Rank: '1',
    EntryId: '557031802',
    EntryName: 'ryanschumm',
@@ -83,4 +83,4 @@ When we run this using `node index`, the console then races by with a wall of te
    Player: 'Connor McDavid',
    '%Drafted': '27.15%',
    FPTS: '4' }
- ```
+```
