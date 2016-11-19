@@ -55,20 +55,20 @@ Rank,EntryId,EntryName,TimeRemaining,Points,Lineup,,Player,%Drafted,FPTS
 Now With the library loading properly and some test data, it's time to how to use fast-csv to actually parse the file.  fast-csv has [solid documentation](https://www.npmjs.com/package/fast-csv) which shows a variety of ways to read through files.  After looking through all the options, I decided to use the `.fromStream` option which accepts a read stream created by [Node's File System (fs) library](https://nodejs.org/api/fs.html) and an options object which allows us to customize how the CSV is read.  For example, we're passing in the `{ headers: true }` parameter to indicate the first line of the file includes the column names.  Then in the example code there there are several event listeners which are the bits of code that start with `.on(event)`.  The first event we see is "data" which turns out being each row in context of a CSV file.  Inside that event listener, I'm simply logging the row as it appears so I can see what it looks like at that moment in the program.  So this will log each row to the console, then once complete it will hit the next event listener "end", which then logs the string "done" to indicate the program is done parsing.
 
 ```javascript
-  var csv = require('fast-csv'),
-       fs = require('fs');
+var csv = require('fast-csv'),
+     fs = require('fs');
 
-  var stream = fs.createReadStream("contest-truncate.csv");
+var stream = fs.createReadStream("contest-truncate.csv");
 
-  csv
-   .fromStream(stream, {headers : true})
-   .on("data", function(row){
-       console.log(row);
-   })
-   .on("end", function(){
-       console.log("done");
-  });
- ```
+csv
+ .fromStream(stream, {headers : true})
+ .on("data", function(row){
+     console.log(row);
+ })
+ .on("end", function(){
+     console.log("done");
+});
+```
 
 When we run this using `node index`, the console then races by with a wall of text and each row looks like it gets converted to an object like this:
 
