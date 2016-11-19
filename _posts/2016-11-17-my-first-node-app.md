@@ -84,5 +84,3 @@ When we run this using `node index`, the console then races by with a wall of te
    '%Drafted': '27.15%',
    FPTS: '4' }
  ```
-
- 
