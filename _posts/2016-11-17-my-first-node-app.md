@@ -84,3 +84,65 @@ When we run this using `node index`, the console then races by with a wall of te
    '%Drafted': '27.15%',
    FPTS: '4' }
 ```
+
+This is great information since it shows me how to access each column of the row while inside the callback function for the "data" event listener.  Now I need to figure a couple of things out, 1) how do I extract the individual names from the `Lineup` attribute and 2) how am I going to store that information within the program.  For the first problem, I'm writing a method called `getPlayersFromLineup()` which takes in two arguments from each row, `row.Lineup` and `row.Player`. To extract the values from the lineup, I decided to use a regular expression.  Below is the code I used for this function.  First it saves the regex to a local variable, then it uses the `.split` method on the `lineup` to extract each player name.  Next this leaves an empty string at the beginning of the `splitLineup` array, so we use the `splice` method to remove that and then add the other `player` argument to this `newLineup` array.  Finally we return this `newLineup` array which is just a list of player names.
+
+```javascript
+function getPlayersFromLineup(lineup, player) {
+    var regex = /C\W|W\W|D\W|G\W|UTIL\W/g;
+    var splitLineup = lineup.split(regex);
+    var newLineup = splitLineup.slice(1,splitLineup.length);
+    newLineup.push(player);
+    return newLineup
+}
+```
+
+For the second problem, my choice for storing all the players is an object since they are very fast and it is relatively easy to store each player as a key-value pair with the player's name being the key and the value being incremented each time they are recognized in a lineup.  To do this, I need to implement two new methods, one called `processLineup()` and another called `addPlayerToPlayers()`.  The `processLineup` function takes in a full lineup of players, which is an array.  The first step in this method modifies each entry in the `lineup` array by trimming off any empty space at the end of each string.  Next it uses a `.forEach` iterator to first check and make sure each item isn't an empty string.  Then it passes the `player` name to the `addPlayerToPlayers` function.  This function simply checks to see if there is already an entry in the `players` object with a key that shares the players name.  If this entry exists, then it simply increments that value by one.  If there is no entry, then it puts the player into the players object and sets it's value to 1.  
+
+```javascript
+var players = {};
+
+function processLineup(lineup){
+    var processedLineup = lineup.map(Function.prototype.call, String.prototype.trim);
+
+    processedLineup.forEach(function(player){
+        if (player) {
+            addPlayerToPlayers(player);
+        }
+    });
+}
+
+function addPlayerToPlayers(player) {
+    if (players[player]) {
+        players[player] ++;
+    } else {
+        players[player] = 1;
+    }
+}
+```
+
+The main part of the script looks like this:
+
+```javascript
+csv
+    .fromStream(readStream, { headers: true})
+    .on("data", function(row){
+        var rowLineup = getPlayersFromLineup(row.Lineup, row.Player);
+        processLineup(rowLineup);
+    })
+    .on("end", function() {
+        console.log("Done")
+    })
+```
+
+And all of the players are stored in the `players` object.  So now we need to figure out how to print out this object in a nice and readable format.  To do this I will implement a method called `printOutput()` which takes in the `players` object.
+
+```javascript
+function printOutput(players) {
+    var counter = 1;
+    players.forEach(function(player) {
+        console.log(`${counter}. ${player[0]}, ownership%: ${player[1]/index}`)
+        counter++;
+    });
+}
+```
