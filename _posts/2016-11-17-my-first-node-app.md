@@ -135,14 +135,49 @@ csv
     })
 ```
 
-And all of the players are stored in the `players` object.  So now we need to figure out how to print out this object in a nice and readable format.  To do this I will implement a method called `printOutput()` which takes in the `players` object.
+And all of the players are stored in the `players` object.  So now we need to figure out how to print out this object in a nice and readable format.  To do this I will implement a method called `printOutput()` which takes in the `players` object.  This function utilizes a variable called `counter` so I can track the rank of each player.  Then it iterates through all of the players and logs their `counter`, name, and value.  
 
 ```javascript
 function printOutput(players) {
     var counter = 1;
     players.forEach(function(player) {
-        console.log(`${counter}. ${player[0]}, ownership%: ${player[1]/index}`)
+        console.log(`${counter}. ${player[0]}, ${player[1]}`)
         counter++;
     });
 }
 ```
+
+Great!  We're now printing out some data, but unfortunately it is sorted in a random order.  So at this point I googled how to sort a javascript object by the values and I found [the function below on StackOverflow](http://stackoverflow.com/questions/1069666/sorting-javascript-object-by-property-value).  
+
+```javascript
+function sortProperties(obj) {
+    var sortable=[];
+    for(var key in obj)
+        if(obj.hasOwnProperty(key))
+            sortable.push([key, obj[key]]);
+
+    sortable.sort(function(a, b) {
+      return a[1]-b[1];
+    });
+
+    return sortable.reverse();
+}
+```
+
+Finally our program is able to parse, sort, and print out some useable information!  At this point, the program will only print out the total number of times a player's name occurs in the CSV file, but what we really want is that number divided by the total number of lineups that were entered.  To do this I simply need to create another counter variable before I parse the CSV.  I'll call it `index`, and then for each row that is parsed, I need to increment this variable.  Then in the `printOutput()` function, I need to divide the `player[1]` by this index variable to produce a decimal percentage.  The core of our CSV parser now looks like this:
+
+```javascript
+csv
+    .fromStream(readStream, { headers: true})
+    .on("data", function(row){
+        var rowLineup = getPlayersFromLineup(row.Lineup, row.Player);
+        processLineup(rowLineup);
+        index ++;
+    })
+    .on("end", function() {
+        var sortedPlayers = sortProperties(players);
+        printOutput(sortedPlayers);
+    })
+```
+
+The program is now printing out the ranking and frequency each player occurs in the lineups.  So I have accomplished my goal.  YAY! All this code is posted up on Github: [Lineup frequency](https://github.com/zacscodingclub/lineup-frequency/blob/master/index.js).  In that code I have implemented a few more features to make the program more flexible, so it will look a little bit different but the functionality explained in this post is still the heart of the program.
