@@ -3,7 +3,7 @@ layout: post
 title: "Using NodeJS to Parse Daily Fantasy Sports (DFS) Lineups"
 ---
 
-Earlier this week a friend was talking about wanting to learn how to program and a project he wanted to complete. The basics of this idea are to get DFS lineups for contests, parse the data, calculate some frequency statistics and output that new information. Since I'm fairly new to developing applications and excited to learn more, I thought it would be fun to attempt this using NodeJS (a language I've never really used). Wile I've played and watched a lot of sports over my lifetime I've never played DFS, so please excuse my ignorance if I say something that is completely wrong.
+Earlier this week a friend was talking about wanting to learn how to program and a project he wanted to complete. The basics of his idea are to get DFS lineups for contests, parse the data, calculate some frequency statistics and output that new information. Since I'm fairly new to developing applications and excited to learn more, I thought it would be fun to attempt this using NodeJS (a language I've never really used). Wile I've played and watched a lot of sports over my lifetime I've never played DFS, so please excuse my ignorance if I say something that is completely wrong.
 
 To get started, I setup a new folder called `linup_frequency`, then moved into the directory and used `npm init` to create a `package.json` file with some basic metadata about the app.  When you do this, it asks what the entry point of your app is going to be and I just went with the default, `index.js`.  Next I type in `git init` to initialize my directory as a Git repository so I can track changes I make to the code.  
 
