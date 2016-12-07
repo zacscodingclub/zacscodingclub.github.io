@@ -14,13 +14,30 @@
   }
 }
 /* iPad */
-@media (min-width: 768px) and (max-width: 1200px) {
+@media (min-width: 920px) and (max-width: 1200px) {
   .navbar .navbar-brand {
     padding-left: 25px;
   }
 
   .navbar-nav > li > a {
     font-size: .9em;
+  }
+  #img-limit {
+    height: 310px;
+    max-height: 310px;
+  }
+  #contact-left {
+    border-right: 1px solid #e6e6e6;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 920px) {
+  .navbar .navbar-brand {
+    padding-left: 25px;
+  }
+
+  .navbar-nav > li > a {
+    font-size: .75em;
   }
   #img-limit {
     height: 310px;
