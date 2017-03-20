@@ -26,3 +26,39 @@
 * `git reset --soft HEAD^` => `git config --global alias.uncommit 'reset --soft HEAD^'` HEAD is current branch checked out, ^ is the parent, --soft es that we should reset the branch (to point at that parent commit), but otherwise leave the files in the working directory and the index untouched.
 * `git status --short`
 
+## Crafting History with Rebase
+* https://thoughtbot.com/upcase/videos/git-crafting-history
+* `git add --patch` git will present an interface to look at each set of changes, so you can make a choice for each one
+
+Key	| Operation
+--- | ---
+h |	Display the list of available keys and their operation
+y |	Stage the current hunk
+n |	Skip this hunk
+s |	Split the hunk
+a |	Stage this and all remaining hunks
+q |	Quit, skipping all remaining hunks
+e |	Edit the hunk manually, allowing for line be line staging
+
+* `git diff --cached` shows the staged changes
+* `git diff origin/master..master` shows changes for a range of commits from origin/master to master
+* `git cherry-pick origin/master..master` copy commits onto a different branch, creates new commits instead of modifying the existing commits
+
+* `git help rebase`
+* `git rebase master`
+> As an example, let's assume we have a branch that when started was based off of
+> master. We've made some changes on our branch and now have two new commits, but
+> at the same time our colleagues have also made changes on the master branch.
+> When performing the rebase, Git finds the commits unique to our branch and
+> computes the diff off the changes they introduced, then moves to the target
+> branch, master in this case, and one by one applies the diffs, creating new
+> commits reusing the commit messages from our branch. Once done, it updates our
+> branch to point at the newest of these commits created by reapplying the diffs.
+
+* `git rebase -i master`, interactive rebase allows you to squash multiple commits into a single commit
+  * p, pick = use commit
+  * r, reword = use commit, but edit the commit message
+  * e, edit = use commit, but stop for amending
+  * s, squash = use commit, but meld into previous commit
+  * f, fixup = like "squash", but discard this commit's log message
+  * x, exec = run command using shell
