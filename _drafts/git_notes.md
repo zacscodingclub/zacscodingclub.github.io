@@ -17,4 +17,12 @@
 * `git blame Gemfile`, who made change to file (sha, Author, date, change)
 * `git show <sha-id>`, shows complete commit information including diff 
 
-###
+## Undoing
+* Note: you'll typically want to do this only in your own branch
+
+* `git commit --amend --no-edit` add to previous commit, `--no-edit` won't open the text editor
+* `git reset <filename>` will remove <filename> from being staged, without filename it will unstage everything currently staged
+* `git checkout .` checkout current working directory, will remove previously changed files (this is destructive if you haven't committed files)
+* `git reset --soft HEAD^` => `git config --global alias.uncommit 'reset --soft HEAD^'` HEAD is current branch checked out, ^ is the parent, --soft es that we should reset the branch (to point at that parent commit), but otherwise leave the files in the working directory and the index untouched.
+* `git status --short`
+
