@@ -108,3 +108,36 @@ e |	Edit the hunk manually, allowing for line be line staging
     * committer: metadata
     * message metadata
 
+### `.git/refs`
+* `cat .git/refs/heads/master` current commit
+* `git cat-file -t <hash-number>` get type
+* Virtually any operation performed in git, changes what a given ref points at.
+* The branch points at a commit. The commit then points to the tree, parents, etc.
+* `.git/tags` => point to an important point in time, i.e. releases/fixed point in time
+* `.git/remotes` => also points to a commit
+* `cat .git/HEAD` Points to local branches. The directory is called heads, as our local branches are the collection of things that HEAD can point at.HEAD is the ultimate ref, defining what we currently have checked out.  
+
+### Object Model Operations
+* `git checkout -b new-branch`, creates new ref
+* `git checkout -b other-branch master`, creates new ref and points it at the master
+* `git checkout master -- app/assets/javascripts/applications.js`, reference different branch, then walk itself to file and copy to current branch
+* `git commit -m "Add new file"`
+  * takes all staged objects and stores as needed
+  * typically involves at least 1 new blob
+  * new tree for current version of working directory
+  * builds commit object that points to new tree
+  * updates checked out branch to point at this new commit
+
+* `git merge --ff-only feature`
+  * creates no new objects, simply updates current branch to reference different commit
+
+* `git merge feature`
+  * Creates a new tree from the existing trees, then creates a new commit which points back at this tree
+
+* `git rebase master`, replays work from features on upstream branch
+  * diffs the feature commits, then adds them to upstream branch 1 by 1
+  * it will create new commit objects carrying over the commit message, but the original feature branch commits are now orphaned as no refs point to them
+
+* `git rebase --interactive master`
+  * squashes commits down to a single commit referencing the same tree (so we know it preserves history)
+
