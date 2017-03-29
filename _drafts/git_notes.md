@@ -187,3 +187,30 @@ e |	Edit the hunk manually, allowing for line be line staging
   ```
 
   * `fall = !for remote in $(git remote); do echo "Fetching $remote"; git fetch "$remote"; done`
+
+## Thoughtbot Git Flow
+
+1. Create branch on local env
+2. Add files to staging
+3. Commit changes
+4. Push branch up to github
+5. Create pull request
+6. Code review
+  * Tips:
+    * Try to keep pull requests as small as possible.  This is convenient for others so they can review quickly.
+    * Include more context for background in the pull request description.
+    * Before/After screenshots if there is a UI change.  Next Level: make a GIF
+    * If something is unfinished, use a task list to show work progress
+7. Wait for PR comments
+8. Revise and Push Updates
+9. Rebase for FastForward Merge
+10. Interactive Rebase
+11. Close the Pull Request
+12. Delete branch locally and on remote
+
+
+## Learning More
+* `git help <command>`
+* https://help.github.com/
+* http://gitready.com/
+* https://github.com/pluralsight/git-internals-pdf
