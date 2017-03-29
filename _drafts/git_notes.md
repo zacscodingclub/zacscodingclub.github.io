@@ -15,7 +15,7 @@
 * `git log -S with_active_subscription`, searches for commit changes the # of times it's used
 * `git log --oneline -- Gemfile`, history of 1 specific file
 * `git blame Gemfile`, who made change to file (sha, Author, date, change)
-* `git show <sha-id>`, shows complete commit information including diff 
+* `git show <sha-id>`, shows complete commit information including diff
 
 ## Undoing
 * Note: you'll typically want to do this only in your own branch
@@ -62,8 +62,8 @@ e |	Edit the hunk manually, allowing for line be line staging
   * s, squash = use commit, but meld into previous commit
   * f, fixup = like "squash", but discard this commit's log message
   * x, exec = run command using shell
-  
-  
+
+
 ## Git Object Model
 * https://thoughtbot.com/upcase/videos/git-object-model
 * `git init`, this creates a hidden directory that lives within your repository
@@ -141,3 +141,49 @@ e |	Edit the hunk manually, allowing for line be line staging
 * `git rebase --interactive master`
   * squashes commits down to a single commit referencing the same tree (so we know it preserves history)
 
+  ## GitHub and Remotes
+  * https://github.com/github/hub
+  * `hub browse`, opens branch in browser
+  * `hub compare`, opens compare url
+  * `hub pull-request`, opens text editor to add title and description for pull-request
+  * `hub ci-status`, text value if CI is successful
+
+  * To create Canonical URL, press Y on github file page.  Further, you can shift-click and highlight lines and it will update the URL
+
+  * open associated pull request from current feature branch
+
+  ```shell
+    #!/bin/sh
+    #/ Usage: git pr [<branch>]
+    #/ Open the pull request page for <branch>, or the current branch if not
+    #/ specified. Lands on the new pull request page when no PR exists yet.
+    #/ The branch must already be pushed
+
+    # Based on script from @rtomayko
+    set -e
+
+    # usage message
+    if [ "$1" == "--help" -o "$1" == '-h' ]; then
+        grep ^#/ "$0" | cut -c4-
+        exit
+    fi
+
+    remote_url=$(git config --get remote.origin.url)
+    repo_with_owner=$(echo $remote_url | perl -pe's/(git@|https:\/\/)?github.com(:|\/)(\w+)\/(\w+)(.git)?/$3\/$4/')
+
+    # figure out the branch
+    branch=${1:-"$(git symbolic-ref HEAD | sed 's@refs/heads/@@')"}
+
+    # check that the branch exists in the origin remote first
+    if git rev-parse "refs/remotes/origin/$branch" 1>/dev/null 2>&1; then
+        # escape forward slashes
+        branch=${branch//\//\%2f}
+
+        exec open "https://github.com/$repo_with_owner/pull/$branch"
+    else
+        echo "error: branch '$branch' does not exist on the origin remote." 1>&2
+        echo "       try again after pushing the branch"
+    fi
+  ```
+
+  * `fall = !for remote in $(git remote); do echo "Fetching $remote"; git fetch "$remote"; done`
