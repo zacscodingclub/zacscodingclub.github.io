@@ -54,3 +54,27 @@ end
 * `let` acts similar to a regular function to set needed variables
 
 * `before` and `let` can be anti-patterns due to making tests less readable.  DRY is applicable to application code, but applying it to testing removes the "tests as documentation" benefit of writing tests
+
+## Unit Converter
+
+```ruby
+describe UnitConverter do
+  describe "#convert" do
+    it "translates between objects of the same dimension" do
+      converter = UnitConverter.new(2, :cup, :liter)
+
+      expect(converter.convert).to be_within(0.001).of(0.473176)
+    end
+
+    it "raises an error if the objects are of differing dimensions" do
+      converter = UnitConverter.new(2, :cup, :grams)
+
+      # when testing the error, you actually pass in a block instead of simply
+      # executing the method like before.
+      expect { converter.convert }.to raise_error(DimensionalMismatchError)
+    end
+  end
+end
+```
+
+* change `it` to `xit` to make test pending instead of running every time, helps isolate specific tests
