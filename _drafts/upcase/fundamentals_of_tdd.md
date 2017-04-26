@@ -78,3 +78,38 @@ end
 ```
 
 * change `it` to `xit` to make test pending instead of running every time, helps isolate specific tests
+
+
+## Refactoring with Test Coverage
+
+
+## Integration vs Unit Tests
+
+* Unit tests test a single part of your application, typically a class or more simply put, a method on a class
+
+### In Rails
+* Integration - Feature tests - high level step through your application.  Visit site, click button, do something etc.
+* Unit - Controller & Model - more of an unit test
+
+### Integration Test
+* Benefits
+  1. Confirms features of an application are working correctly
+  2. Units can all be passing, but the interface does not behave correctly
+  3. Starting with feature tests can allow you to drive which unit tests are needed
+  4. Really helps when you have collaborating objects
+
+## Going Further with TDD
+### Books
+* The RSpec Book
+* Rails 4 Test Prescriptions
+* Testing Rails
+
+### Series
+* Test Doubles
+* Test Driven Rails
+* Weekly Iteration
+ * https://thoughtbot.com/upcase/videos/four-phases-of-testing
+ * https://thoughtbot.com/upcase/videos/demonstrate-class-design-via-tdd
+ * https://thoughtbot.com/upcase/videos/speedy-tests
+ * https://thoughtbot.com/upcase/videos/integration-vs-unit-testing
+ * https://thoughtbot.com/upcase/videos/integration-vs-unit-testing
