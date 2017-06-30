@@ -201,7 +201,8 @@ FROM (
 ) locations;
 
 Location.from(Location.billable, :locations).by_region_and_location_name
-ELECT "locations".*
+/* Translates to */
+SELECT "locations".*
 FROM (
   SELECT DISTINCT "locations".*
   FROM "locations"
@@ -214,4 +215,86 @@ FROM (
 INNER JOIN "regions"
   on "regions"."id" = "locations"."region_id"
 ORDER BY "regions"."name" ASC, "locations"."name" ASC;
+```
+
+## Querying with Custom Joins
+### Domain model
+```ruby
+class Person < ActiveRecord::Base
+  belongs_to :manager, class_name: "Person", foreign_key: :manager_id
+  has_many :employees, class_name: "Person", foreign_key: :manager_id
+end
+```
+
+### Find all people not managed by "Eve"
+
+```
+Persons.joins(:manager)
+/* Translates to */
+SELECT "people".*
+FROM "people"
+INNER JOIN "people" "managers_people"
+  ON "managers_people"."id" = "people"."manager_id";
+
+# further refinement
+Person.
+  joins(:manager).
+  where.
+  not(managers_people: { id: Person.find_by!(name: "Eve")})
+/* Translates to */
+SELECT "people".*
+FROM "people"
+INNER JOIN "people" "managers_people"
+  ON "managers_people"."id" = "people"."manager_id"
+WHERE ("managers_people"."id" != 1);
+
+# getting crazy...
+Person.
+  joins(<<-SQL
+    LEFT JOIN people managers
+      on managers.id = people.manager_id
+  SQL).
+  where.
+  not(managers: { id: Person.find_by!(name: "Eve")})
+/* Translates to */
+SELECT "people".*
+FROM "people"
+LEFT JOIN people managers
+  on managers.id = people.manager_id
+WHERE ("managers"."id" != 1);
+
+Person.
+  joins(<<-SQL
+    LEFT JOIN people managers
+      on managers.id = people.manager_id
+  SQL).
+  where(
+    "managers.id != ? OR managers.id IS NULL,
+    Person.find_by!(name: "Eve")
+  )
+
+/* Translates to */
+SELECT "people".*
+FROM "people"
+LEFT JOIN people managers
+  on managers.id = people.manager_id
+WHERE ("managers"."id" != 1 OR managers.id IS Null);
+```
+
+### Find all distinct locations with at least on person who belongs to a billable role, ordered by region name, then location name
+```
+Person.
+  joins(
+    "INNER JOIN (" +
+      Location.
+        joins(people: :role).
+        where(roles: { billable: true }).
+        distinct.
+        to_sql +
+     ") billable_locations " \
+     "ON locations.id = billable_locations.id"
+    ).
+    joins(:region).
+    merge(Region.order(:name)).
+    order(:name)
 ```
