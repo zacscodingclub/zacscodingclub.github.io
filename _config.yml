@@ -4,12 +4,14 @@
 collections:
   projects:
     output: true
+    permalink: /:collection/:name
+
 
 # Name of your site (displayed in the header)
 name: Zac Baston
 
 # Short bio or description (displayed in the header)
-description: Rails and Things
+description: Engineer for Good
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
 avatar: https://avatars3.githubusercontent.com/u/7807203?v=3&s=460
@@ -20,6 +22,7 @@ avatar: https://avatars3.githubusercontent.com/u/7807203?v=3&s=460
 
 # Includes an icon in the footer for each username you enter
 footer-links:
+  resume: /downloads/ZacBaston-Resume.pdf
   email: zbaston@gmail.com
   github: zacscodingclub
   instagram: zacsbarbellclub
@@ -57,7 +60,7 @@ sass:
   style: :expanded # You might prefer to minify using :compressed
 
 # Use the following plug-ins
-gems:
+plugins:
   - jekyll-sitemap # Create a sitemap using the official Jekyll sitemap gem
   - jekyll-feed # Create an Atom feed using the official Jekyll feed gem
   - jekyll-seo-tag
