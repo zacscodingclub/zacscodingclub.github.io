@@ -1,23 +1,28 @@
+#!/usr/bin/env ruby
+
 class Deploy
   class << self
     def build
       command = "jekyll build"
       puts "Build Started"
-      exec(command)
+      system(command)
       puts "Build Complete"
     end
 
-    def remote_sync
-      command = "rsync ./_site zeebee@beorn.dreamhost.com:/home/zeebee/zacbaston.com"
-      puts "Deploying to Dreamhost"
-      exec(command)
+    def git_tasks
 
+    end
+
+    def sync
+      command = "rsync ./_site/ zeebee@beorn.dreamhost.com:/home/zeebee/zacbaston.com"
+      puts "Deploying to Dreamhost"
+      system(command)
     end
 
     def call
       begin
         build
-        remote_sync
+        sync
       rescue Exception => e
         puts "Error: #{e}"
       end
