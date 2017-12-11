@@ -14,7 +14,7 @@ class Deploy
     end
 
     def sync
-      command = "rsync ./_site/ zeebee@beorn.dreamhost.com:/home/zeebee/zacbaston.com"
+      command = "rsync -av ./_site/* zeebee@beorn.dreamhost.com:/home/zeebee/zacbaston.com"
       puts "Deploying to Dreamhost"
       system(command)
     end
