@@ -166,28 +166,57 @@ You've already done this.
 Edpoint always in this format:
 http://<bucket-name>.s3-website-us-east-1.amazonaws.com
 
-### S3 Summary
-* S3 101
-  * Object based, i.e. files, stored in Buckets with a universal namespace (globally)
-  * file sizes 0 Bytes to 5TB, with unlimited storage
-  * Read after Write consistentcy for PUTS of new Objects
-  * Eventual consistency for overwrite PUTS and DELETES
-  * S3 Standard: 99.99% available, 11 9s durability.  Redundancy across facilities and designed to sustain the loss of 2 facilities concurrently.
-  * S3 - IA (Infrequently Accessed): For data accessed infrequently, but requires quick access when used.  Data retrieval fee.
-  * S3 One Zone - IA: Lower cost version of above for your local region only.
-  * Glacier: very cheap but archival only.  Expedited, Standard or Bulk retrieval rates.
-
-
-* CloudFront
-
-* Storage Gateway
-
-* Snowball
-
-* Transfer Acceleration
-
-
 ## EC2 - The backbone of AWS
+### EC2 101
+Elastic Compute Cloud - web service that provides resizable compute capacity in the cloud.  Reduces the time required to obtain and boot new server instance to minutes, allowing quickly scaling to capacity (up and down), as requirements change.
+
+Allows users to pay for capacity that is actually used.  
+
+### EC2 Options
+  * On Demand - pay fixed rate by hour (or second) without commitment
+    * Good fo rusers that want low cost and flexibility of EC2 without an up-front payment or long-term commitment
+    * Applications with short term, spiy, or unpredictable workloads that cannot be interrupted
+    * Applications being developed or tested on EC2 for the first time
+
+  * Reserved - provides you with a capacity reservation and offer a significant discount on the hourly charge (1 or 3 year terms)
+    * Applications with steady state or predictable usage, that require reserved capacity.
+    * Users can make up-front payments to reduce their total computing costs
+    * Standard RIs (up to 75% off on-demand)
+    * Convertible RIs (up to 54% off on-demand), ability to change attributes of RI as long as exchange results in creation <= value
+    * Scheduled RIs available during reserved time windows.  
+
+  * Spot - bid whatever price you want for isntance capacity, providing even greater savings if your applications have flexible start and end times
+
+  * Dedicated Hosts - physical server dedicated for your use.  Dedicated hosts can help reduce costs by allowing you to use existing server-bound software licenses (SQL Server, VMware, etc)
+    * Useful for regulatory requirements that may not support multitenant virtualization
+  
+[instance types](link to screenshot)
+Fight Dr Mcpx
+F: FPGA
+I: iops
+G: graphics
+H: High disk throughput
+T: cheap, general purpose
+D: Density
+R: RAM
+M: main choice for general purpose apps
+C: compute
+P: graphics
+X: Extreme memory
+
+
+### EBS
+EBS allows you to create storage volumes and attach them to EC2 instances.  Once attached, you can create a file system on top of these volumes, run a database, or use them in any other way you would use a block device.  EBS volumes are placed ina  specific AZ where they are automatically replicated to protect you from a single component failure.
+* General Purpose SSD (GP2): balances price and performance
+  * Ration of 3 IOPS per GB with up to 10k IOPS and ability to burst up to 3k IOPS for extended perios of times.
+* Provisioned IOPS SSD (IO1)
+  * Designed for I/O intensive applications such as large relational or NoSQL databases
+  * Use if you need more than 10k IOPS
+* Throughput Optimized HDD (ST1)
+  * Big data, data warehouses, log processing, cannot be a boot volume
+* Cold HDD (SC1)
+* Magnetic (Standard)
+  * Lowest cost per GB of all EBS volume types that is bootable.  Magnetic volumes are ideal for workloads where data is accessed infrequently, and applications where the lowest storage cost is important.
 
 ## Route53
 
