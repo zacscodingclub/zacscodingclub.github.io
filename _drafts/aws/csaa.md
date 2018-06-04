@@ -488,6 +488,191 @@ In the event of a failover condition (incident, maintenance, etc):
 
 ## VPC
 
+### Subnet Addressing
+
+TCP/IP address is a 32 bit, binary number that is represented as four bytes converted to decimal:
+111111111.111111111.111111111.111111111 => 0-255.0-255.0-255.0-255
+
+* Private Network Ranges
+  Private address ranges are used within your private network as opposed to public IP addresses which are visible to the wider internet.
+
+  * Class A Private Address = 10.0.0.0/8. begins with 10
+  * Class B Private Address = 172.16.0.0/12. begins with 172.16-31
+  * Class C Private Address = 192.168.0.0/16. begins with 192.168
+
+* Subnet Mask
+
+  * Defines the IP range of our network
+  * 1s represent the network portion and 0s reprsent the hosts
+  * Amazon reserves the first 4 IP addresses and the last 1 IP address of every subnet for IP networking purposes
+  * e.g. Network IP address: 192.168.1.0, Subnet Mask: 255.255.255.0
+    11000000.10101000.00000001|.|00000000 (IP Adress Binary)
+    11111111.11111111.11111111|.|00000000 (Subnet Mask)
+  * Reserved for Amazon:
+    11000000.10101000.00000001|.|00000100 (First Host Address)
+    11000000.10101000.00000001|.|11111110 (Last Host Address)
+
+* Classless Inter-Domain Routing (CIDR) Notation
+
+  * Shorthand notation defines the numer of Subnet Mask bits
+  * Larger the number, fewer addresses available for hosts
+    255.255.255.0 => /24
+    255.255.0.0 => /20
+    255.255.240.0 => /16
+
+* Default VPC is assigned a CIDR range of 172.31.0.0/16. You are free to use other private address ranges e.g. 10.0.0.0/16
+* Amazon VPC supports VPCs between /28 and /16 in size
+* Min size of subnet is /28 (or 14 IP addresses). Subnets cannot be larger than the VPC in which they are created.
+* To change size of VPC, you must terminate your existing VPC and create a new one.
+
+### Connecting to a VPC
+
+1.  Internet gateway: scalable, redundant, and highly available VPC component
+2.  Virtual private gateway is the VPN concentrator on the Amazon of the VPN connection
+
+### Route Tables
+
+* For an instance to connect to the internet it needs:
+
+  1.  Internet gateway
+  2.  Custom route table to the internet gateway explicitly associated to the subnet containing the instance
+  3.  Public IP address
+
+* Main route table automatically created when you createa a VPC with the VPC wizard
+
+  1.  Allows local traffic within VPC
+  2.  Implicitly associated to all subnets unless another route table has been explicitly associated to the subnet
+
+* Custom route table also automatically crated when you create a VPC with the VPC wizard
+  1.  Allows local traffic within VPC
+  2.  Creates a route to the internet gateway
+  3.  Explicitly associated to the subnet
+
+### Public and Private Subnets
+
+### Network Address Translation (NAT)
+
+* NAT Gateway
+  * Allow traffic to flow from private subnet through public subnet to internet gateway
+* NAT Instance (EC2)
+  * EC2 instance which acts as a proxy (?)
+
+### VPC Security
+
+* Security Groups
+
+* Firewall at the instance level
+* Supports only allow rules
+* Is stateful: return traffic is automatically allowed
+* evaluate all rules before deciding whether to allow traffic
+
+* Network access control lists (ACLs)
+
+  * Firewall at the subnet level
+  * Supports allow and deny rules
+  * Is stateless: return traffic must be explicitly allowed by rules
+  * process rules in number order when deciding whether to allow traffic. most restrictive deny applies
+
+* Flow logs
+  * Capture information as CloudWatch logs
+
+## CloudFormation
+
+* Core deployment tool using JSON (or YAML) to define the infrastructure. "Infrastructure as code"
+* Version control capability
+* Template describes all the AWS resources and CloudFormation takes care of provisioning and configuring.
+
+### Template Sections
+
+1.  Format Version
+2.  Description - must always follow Format Version
+3.  Metadata - objects and keys that provide more info
+4.  Parameters - values to be passed at stack creation. Default parameter can be defined.
+
+```json
+"Parameters": {
+  "InstanceTypeParameter": {
+    "Type": "String",
+    "Default": "t2.micro",
+    "AllowedValues": ["t2.micro", "m1.small", "m1.large"],
+    "Description": "Enter t2.micro, m1.small, or m1.large. Default is t2.micro."
+  }
+}
+```
+
+5.  Condtions - define when a resource is created or a property defined
+6.  Outputs - declare values taht can be: Imported to other stacks, Returned to describe stack calls, or Displayed on the console
+
+### Cloudformer
+
+* Creates an CloudFormation templates from existing AWS resources in your account.
+* You select the resources from account
+* CF template is created and stored in S3 bucket
+* Does not support YAML
+
+### CloudFormation Designer
+
+* UI for drag-and-drop interface for adding resources to templates
+* Does not support YAML
+
+## Elastic Beanstalk
+
+* Deploys and manages applications without worrying about the infrastructure
+* Capacity provisioning, load balancing, scaling, and health monitoring
+* New versions can be uploading through the console, a GIT repository or IDE and, environment re-deployed
+* Applications can be:
+  * Docker containers
+  * NodeJS, Java, .NET, PHP, Ruby, Python & Go
+  * Servers: Apache, Nginx, Passenger, and IIS
+
+## OpsWOrks
+
+* Configuration management platform
+* Provides more control over infrastructure design and management than EB
+* Infrastructure as code using Chef recipes for fine-grained control
+* Consists of a CM model based upon Stacks, Layers, and Recipes
+
+### Stack
+
+* Top-level OpsWorks entity
+* Represents a set of instances an applications that you want to manage collectively
+* e.g. web server stack that may contain a load balancer, server instances, and database
+
+#### Layers, Instances, and Apps
+
+* Define how to set up and configure instances and resources
+* Stacks must contains one or more layers
+* Layers must contain at least one instance
+* Instances can be a member of multiple layers
+* Apps represent your applications
+
+### Scaling
+
+* 24/7 instances added to a layer can manually start, stop, or reboot the corresponding EC2 instances
+* Automatic Scaling
+  * Time based instances based upon a schedule
+  * Load based instances based upon several load metrics (network traffic, CPU utilization)
+* Combination of all 3 types is an effective strategy
+
+### Deploymentn and Customization
+
+* App and associated infrastructure is deployed automatically
+* Chef recipes define infrastructure as code
+  * Customisation
+  * Redployment
+  * Version control
+  * Code reuse
+
+### OpsWorks Lab
+
+1.  OpsWorks -> Add your first stack
+2.  Use Sample stack -> automatically provisions infrastructure
+3.  Instantiates instances in stopped state. Instances -> select 'Start'
+
+## CloudWatch
+
+## Deployment
+
 ## Application Services
 
 ## Real World Fault Tolerant WP Site
