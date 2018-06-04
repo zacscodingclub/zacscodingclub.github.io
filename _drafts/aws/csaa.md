@@ -671,7 +671,83 @@ TCP/IP address is a 32 bit, binary number that is represented as four bytes conv
 
 ## CloudWatch
 
+### Statistics
+
+* Average, Max, Min, etc
+* CLI - get-metric-statistics, API - GetMetricStatistics
+  * Maximum number of data points that can be queried is 50850
+  * Max data points returned from a single request is 1440
+* View with console and create dashboards
+
+### Alarms
+
+* Billing and resource alarms
+* Integrates with SNS
+* Three states: OK, ALARM, & INSUFFICIENT_DATA
+* If a metric is above the alrm, threshold for the number of time periods defined by the evaluation perioed, an alarm is invoked.
+
+### Events
+
+* Resource changes state: EC2 state, autoscaling instance launche
+* CloudTrail integration: API call, log into console
+* Can invoke Lambda functions SNS topics, SQS queues, Kinesis streams or built-in targets
+
+### Scaling
+
+### Logs
+
+* Monitor, store, and access log files from EC2 instances, CloudTrail, or other sources
+* Real time monitoring of log information
+* Log streams - sequence of log events from a source
+* Log Groups - streams the same retention, monitoring, and access control settings
+* Metric filters - define how information is extracted to create data points
+* Retention settings - how long log events are kept in CloudWatch Logs
+
 ## Deployment
+
+### Infrastructure as Code
+
+* Allows infrastructure to be managed in the same way as software
+* Version Control
+* Examples:
+  * CloudFormation Templates
+  * CloudFormation Designer
+  * AMI
+
+### Continuous Deployment - Application
+
+* Automated delivery of production ready code
+* Allows rapid deployment and roll back if necessary
+* Examples
+  * CodeCommit
+  * CodePipeline
+  * Elastic BeanStalk
+  * OpsWorks
+  * ECS
+
+### Continuous Deployment - Application and Infrastructure Deployment
+
+* Examples
+  * CodePipeline
+  * CodeCommit
+  * Elastic BeanStalk
+  * OpsWorks
+  * ECS
+* Hybrid Deplyoments: separating Application and Database or Application and Infrastructure deployments
+
+### Updating Options
+
+* Prebaking AMIs (slower and more expensive)
+* In-place Upgrade: Application updates on livei Amazon EC2 instances
+* Disposable Upgrade
+  * Rolling out new EC2 instances and terminating older instances
+  * Allows staged deployment
+
+### Blue-Green Deployments
+
+* Staged rollout from existing (blue) environment while testing a new (green) one
+* Uses DNS to increase traffic to green environmentn in stages
+* Requres 2x resources
 
 ## Application Services
 
