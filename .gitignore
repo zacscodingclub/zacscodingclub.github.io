@@ -5,4 +5,4 @@ _site
 .sass-cache
 node_modules
 package.json
-
+deploy
