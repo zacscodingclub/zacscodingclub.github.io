@@ -9,7 +9,7 @@ collections:
 # Name of your site (displayed in the header)
 name: Zac Baston
 
-description: Making things.
+description: Building
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
 avatar: https://avatars3.githubusercontent.com/u/7807203?v=3&s=460
 
@@ -22,14 +22,14 @@ footer-links:
   resume: /downloads/ZacBaston-Resume.pdf
   email: zbaston@gmail.com
   github: zacscodingclub
-  instagram: zacsbarbellclub
+  instagram: #
   linkedin: zac-baston
   rss: # just type anythig here for a working RSS icon
-  twitter: zacsbarbellclub
+  twitter: # 
   youtube: # channel/<your_long_string> or user/<user-name>
 
 # Enter your Google Analytics web tracking code (e.g. UA-2110908-2) to activate tracking
-google_analytics: UA-74347597-1
+google_analytics: G-2BZRS8TW11
 
 # Your website URL (e.g. http://barryclark.github.io or http://www.barryclark.co)
 # Used for Sitemap.xml and your RSS feed
