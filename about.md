@@ -4,11 +4,9 @@ title: About
 permalink: /about/
 ---
 
-I'm a software engineer that enjoys working across all parts of an application.
-In the past I have written code using Python, Ruby, JavaScript, and even a bit
-of PHP. Right now I'm having a blast [learning Go](https://golang.org/).
+I'm an engineer that enjoys working across the stack of an application to make an impact. I've been both a software and devops engineer that works on web apps, CLI apps, CI/CD pipelines, and even the code that generates the infrastructure that is used by the web applications and the CI/CD pipelines. I've experienced technical scaling problems and worked to understand how to overcome those problems. 
 
-### Here is my resume:
+### Check out my resume:
 
 <a href="{{ site.baseurl }}{{ site.footer-links.resume }}"><i class="resume"></i></a>
 
