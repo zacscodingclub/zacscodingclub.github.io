@@ -14,7 +14,9 @@ class Deploy
     end
 
     def sync
-      command = "rsync -av ./_site/* zeebee@iad1-shared-b8-05.dreamhost.com:/home/zeebee/zacbaston.com"
+      # NOTE: --delete intentionally omitted — server holds legacy project dirs
+      # (projects/*, font-awesome/, etc.) that aren't in this repo. See IMPROVEMENTS.md #2.
+      command = "rsync -av ./_site/ blog:/home/zeebee/zacbaston.com/"
       puts "Deploying to Dreamhost"
       system(command)
     end

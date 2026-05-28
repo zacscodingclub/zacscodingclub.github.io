@@ -1,2 +1,8 @@
 source 'https://rubygems.org'
-gem 'github-pages'
+gem 'jekyll', '~> 4.3'
+group :jekyll_plugins do
+  gem 'jekyll-sitemap'
+  gem 'jekyll-feed'
+  gem 'jekyll-seo-tag'
+  gem 'jekyll-paginate'   # or migrate to jekyll-paginate-v2
+end

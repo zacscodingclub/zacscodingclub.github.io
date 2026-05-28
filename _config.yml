@@ -22,11 +22,8 @@ footer-links:
   resume: /downloads/ZacBaston-Resume.pdf
   email: zbaston@gmail.com
   github: zacscodingclub
-  instagram: #
   linkedin: zac-baston
-  rss: # just type anythig here for a working RSS icon
-  twitter: # 
-  youtube: # channel/<your_long_string> or user/<user-name>
+  rss: true # any truthy value renders the RSS icon → /feed.xml
 
 # Enter your Google Analytics web tracking code (e.g. UA-2110908-2) to activate tracking
 google_analytics: G-2BZRS8TW11
@@ -54,7 +51,7 @@ version: v1.1.0
 
 # Set the Sass partials directory, as we're using @imports
 sass:
-  style: :expanded # You might prefer to minify using :compressed
+  style: :compressed
 
 # Use the following plug-ins
 plugins:
@@ -70,5 +67,10 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
+  - IMPROVEMENTS.md
+  - deploy
+  - Dockerfile
+  - docker-compose.yml
+  - docker-entrypoint.sh
 
 paginate: 5
