@@ -60,6 +60,10 @@ plugins:
   - jekyll-seo-tag
   - jekyll-paginate
 
+# Include dotfiles Jekyll would otherwise skip
+include:
+  - .htaccess
+
 # Exclude these files from your production _site
 exclude:
   - Gemfile
