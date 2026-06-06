@@ -12,6 +12,4 @@ I'm an engineer that enjoys working across the stack of an application to make a
 
 ### Want to get in touch?
 
-Send me an email:
-
-[zac@zacbaston.com](mailto:zac@zacbaston.com)
+Check my [resume]({{ site.baseurl }}{{ site.footer-links.resume }}) for contact info.
