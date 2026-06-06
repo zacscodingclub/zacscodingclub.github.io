@@ -40,7 +40,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-feed
   - jekyll-seo-tag
-  - jekyll-paginate
+  - jekyll-paginate-v2
 
 include:
   - _headers
@@ -57,4 +57,9 @@ exclude:
   - docker-compose.yml
   - docker-entrypoint.sh
 
-paginate: 5
+pagination:
+  enabled: true
+  per_page: 5
+  permalink: '/page:num/'
+  sort_field: 'date'
+  sort_reverse: true
