@@ -1,0 +1,19 @@
+# Cloudflare Pages cache-control. Compression (gzip/brotli) is automatic.
+
+# Long-lived caching for stable assets
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+/downloads/*
+  Cache-Control: public, max-age=86400
+
+# CSS — long cache; bust by hard-refresh until a fingerprinting scheme exists
+/style.css
+  Cache-Control: public, max-age=604800
+
+# HTML + feeds — short cache so new posts show quickly
+/feed.xml
+  Cache-Control: public, max-age=3600
+/sitemap.xml
+  Cache-Control: public, max-age=3600
+/*
+  Cache-Control: public, max-age=3600
